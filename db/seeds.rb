@@ -9,12 +9,12 @@ puts "Usuário criado:"
 puts "login admin@admin.com"
 puts "111111"
 
-10.times do |counter|
+1000.times do |counter|
   puts "Creating user #{counter}"
   User.create email: Faker::Internet.email, password: '111111'
 end
 
-500.times do |counter|
+1000.times do |counter|
   puts "Inserting Person #{counter}"
 
   attrs = {
@@ -27,10 +27,23 @@ end
   person = Person.create(attrs)
 
   5.times do |debt_counter|
-    puts "Inserting Debt #{debt_counter}"
+    #puts "Inserting Debt #{debt_counter}"
     person.debts.create(
       amount: Faker::Number.between(from: 1, to: 200),
       observation: Faker::Lorem.paragraph
     )
   end
+
+  5.times do |pay_counter|
+    #puts "Inserting Pay #{pay_counter}"
+    
+    start_date = Date.new(2024, 1, 1)
+    end_date = Date.today
+    random_date = rand(start_date..end_date)
+    person.payments.create(
+      amount: Faker::Number.between(from: 1, to: 200),
+      paid_at: random_date
+    )
+  end
+
 end
